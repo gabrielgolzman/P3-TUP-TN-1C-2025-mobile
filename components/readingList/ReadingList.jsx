@@ -1,22 +1,19 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native'
 
 const ReadingList = () => {
     const [text, setText] = useState('');
+    const [listReadings, setListReadings] = useState([]);
 
     const handleTextChange = (enteredText) => {
         setText(enteredText);
     }
 
     const handlePressAdd = () => {
-        Alert.alert('Agregar lectura', `Lectura ${text} agregada`, [
-            {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-            },
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ])
+        setListReadings(prevListReadings => [...prevListReadings, {
+            id: prevListReadings.length + 1,
+            text
+        }]);
     }
     return (
         <>
@@ -31,9 +28,22 @@ const ReadingList = () => {
                     <Button title='Agregar lectura' onPress={handlePressAdd} />
                 </View>
             </View>
-            <View>
-                <Text>Lista de lecturas...</Text>
-            </View>
+            {/* <ScrollView>
+                {listReadings.map((listReading) =>
+                    <Text style={styles.readingItem} key={listReading.id}>
+                        {listReading.text}
+                    </Text>
+                )}
+            </ScrollView> */}
+            <FlatList
+                data={listReadings}
+                renderItem={({ item }) =>
+                    <Text style={styles.readingItem}>
+                        {item.text}
+                    </Text>
+                }
+                keyExtractor={(item) => item.id}
+            />
         </>
     )
 }
@@ -55,5 +65,12 @@ const styles = StyleSheet.create({
     buttonInput: {
         width: "50%",
         alignSelf: "flex-end"
+    },
+    readingItem: {
+        margin: 12,
+        padding: 8,
+        borderRadius: 6,
+        backgroundColor: '#20621BFF',
+        color: '#FFF'
     }
 })
