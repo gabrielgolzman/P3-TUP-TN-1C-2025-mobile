@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native'
 
-const ReadingList = () => {
+const ReadingListScreen = () => {
     const [text, setText] = useState('');
     const [listReadings, setListReadings] = useState([]);
 
@@ -48,7 +48,7 @@ const ReadingList = () => {
     )
 }
 
-export default ReadingList
+export default ReadingListScreen
 
 const styles = StyleSheet.create({
     inputContainer: {
