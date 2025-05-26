@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 
 const ReadingList = () => {
     const [text, setText] = useState('');
